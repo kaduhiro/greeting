@@ -1,0 +1,26 @@
+version: '3.8'
+
+x-var: &COMMON
+  networks:
+    internal:
+
+networks:
+  internal:
+
+services:
+  greeting:
+    <<: *COMMON
+    build: ../../build
+    image: kaduhiro/greeting
+    container_name: greeting
+    hostname: greeting
+    ports:
+      - 3000:3000
+    volumes:
+      - ../..:/app
+    environment:
+      URL_PREFIX: /out
+    command:
+      - /bin/sh
+      - -c
+      - 'yarn && yarn build && yarn export && yarn serve'
