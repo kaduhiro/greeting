@@ -6,14 +6,18 @@ const { persistAtom } = recoilPersist({
   storage: typeof window === 'undefined' ? undefined : sessionStorage,
 });
 
-export type themeStateType = {
-  dark: boolean;
+export type timeStateType = {
+  morning: boolean;
+  morning_greeting: string;
+  night_greeting: string;
 };
 
-export const themeState = atom<themeStateType>({
-  key: 'theme',
+export const timeState = atom<timeStateType>({
+  key: 'time',
   default: {
-    dark: false,
+    morning: true,
+    morning_greeting: 'Good morning👋',
+    night_greeting: 'Good night👋',
   },
   effects_UNSTABLE: [persistAtom],
 });
