@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 
 import { Roboto_Slab } from '@next/font/google';
 import { useRouter } from 'next/router';
+import { SessionProvider } from 'next-auth/react';
 import { RecoilRoot } from 'recoil';
 
 import { Gtag, GtagHandler } from '@/libraries/gtag';
@@ -28,9 +29,11 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [router.events]);
 
   return (
-    <RecoilRoot>
-      <Gtag />
-      <Component {...pageProps} />
-    </RecoilRoot>
+    <SessionProvider session={pageProps.session}>
+      <RecoilRoot>
+        <Gtag />
+        <Component {...pageProps} />
+      </RecoilRoot>
+    </SessionProvider>
   );
 }

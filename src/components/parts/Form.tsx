@@ -1,5 +1,7 @@
 import { useRef } from 'react';
 
+import { Auth } from '@/components/parts';
+
 export const Form = () => {
   const titleRef = useRef<HTMLInputElement>(null);
   const bodyRef = useRef<HTMLTextAreaElement>(null);
@@ -21,7 +23,8 @@ export const Form = () => {
             ref={bodyRef}
           ></textarea>
         </div>
-        <div className='flex w-full justify-end p-2'>
+        <div className='flex w-full justify-between p-2'>
+          <Auth />
           <button className='flex h-10 items-center rounded border-0 bg-blue-500 py-2 px-8 text-lg capitalize text-white duration-200 hover:bg-blue-600 focus:outline-none'>
             greeting
           </button>
