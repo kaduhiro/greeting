@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import Link from 'next/link';
 
+import { Img } from '@/components/elements';
+
 type ButtonType = {
   className: string;
   text: string;
@@ -29,7 +31,7 @@ export const Auth = () => {
   return session ? (
     <div className='flex items-center gap-3'>
       <Link href={`https://twitter.com`} target='_blank'>
-        <img
+        <Img
           className='h-10 w-10 rounded-full border-2 border-transparent p-0.5 transition duration-200 hover:border-gray-200 hover:opacity-80'
           src={session.user?.image ?? ''}
           alt='icon'
