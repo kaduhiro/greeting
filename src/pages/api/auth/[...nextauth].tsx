@@ -1,4 +1,5 @@
-import NextAuth from 'next-auth';
+import NextAuth, { Session } from 'next-auth';
+import { JWT } from 'next-auth/jwt';
 import FacebookProvider from 'next-auth/providers/facebook';
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
@@ -28,12 +29,12 @@ export const authOptions = {
   ],
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async session({ session, token, user }) {
+    async session({ session, token, user }: any): Promise<Session> {
       session.user.username = token.username;
 
       return session;
     },
-    async jwt({ token, user, account = {}, profile, isNewUser }) {
+    async jwt({ token, user, account = {}, profile, isNewUser }: any): Promise<JWT> {
       if (account.provider && !token[account.provider]) {
         token[account.provider] = {};
       }
@@ -66,7 +67,7 @@ export const authOptions = {
       return token;
     },
   },
-  async signIn({ user, account, profile, email, credentials }) {
+  async signIn({ user, account, profile, email, credentials }: any): Promise<boolean> {
     return true;
   },
 };
