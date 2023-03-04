@@ -49,7 +49,7 @@ export const authOptions = {
               access_token_secret: account.oauth_token_secret,
             };
           }
-          token['username'] ??= profile.screen_name ?? null;
+          token[account.provider].username ??= profile.screen_name ?? '';
 
           // OAuth 2.0
           if (account.access_token && account.refresh_token) {
@@ -59,7 +59,7 @@ export const authOptions = {
               access_token_secret: account.refresh_token,
             };
           }
-          token['username'] ??= profile.data.username ?? null;
+          token[account.provider].username ??= profile.data.username ?? '';
 
           break;
       }
