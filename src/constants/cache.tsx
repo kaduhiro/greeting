@@ -10,3 +10,9 @@ export const TWITTER = {
     tweet: 'tweet',
   },
 } as const;
+
+export const ASSISTANT = {
+  cacheKey: {
+    assistant: 'assistant',
+  },
+} as const;
