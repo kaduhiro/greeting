@@ -2,12 +2,12 @@ import { StatusCodes } from 'http-status-codes';
 import { getToken } from 'next-auth/jwt';
 import Twitter, { ApiResponseError } from 'twitter-api-v2';
 
-import { Tweet } from '@/entities/twitter';
+import { ResponseTweetData } from '@/generated/type';
 import { ApiError } from '@/types';
 
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-const handler = async (req: NextApiRequest, res: NextApiResponse<Tweet | ApiError>) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse<ResponseTweetData | ApiError>) => {
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
   if (!token) {
     return res.status(StatusCodes.UNAUTHORIZED).json({ status: StatusCodes.UNAUTHORIZED, message: 'Unauthorized.' });
@@ -34,7 +34,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Tweet | ApiErro
 
     const result = await client.v1.tweet(status);
 
-    res.status(200).json({ id: result.id_str, title, body });
+    return res.status(StatusCodes.OK).json({
+      id: result.id_str,
+      user: { name: result.user.name, screen_name: result.user.screen_name },
+      text: result.text,
+      created_at: result.created_at,
+    });
   } catch (error) {
     if (error instanceof ApiResponseError) {
       return res.status(error.code).json({ status: error.code, message: error.message });

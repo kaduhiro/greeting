@@ -1,5 +1,9 @@
 export type ResponseTweetData = {
   id: string;
-  title: string;
-  body: string;
+  user: {
+    name: string;
+    screen_name: string;
+  };
+  text: string;
+  created_at: string;
 };
