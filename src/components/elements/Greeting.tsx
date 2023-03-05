@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Link from 'next/link';
+import { toast, ToastOptions } from 'react-toastify';
 
-import { Tweet } from '@/entities/twitter';
+import { link, Tweet } from '@/entities/twitter';
 import { TweetCreateQuery, useTweetCreate } from '@/usecases/twitter';
 
 type GreetingProps = {
@@ -16,10 +18,24 @@ export const Greeting = (props: GreetingProps) => {
   const [errored, setErrored] = useState<boolean>(false);
 
   const response = useTweetCreate(query);
+
+  const toastOptions: ToastOptions = {
+    position: 'bottom-center',
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: 'colored',
+  };
+
   useEffect(() => {
     if (response.data) {
       setTweet(response.data.tweet);
       setTimeout(() => setTweet(undefined), 3000);
+
+      toast.success('Tweet succeeded!', toastOptions);
     }
   }, [response.data]);
 
@@ -27,6 +43,8 @@ export const Greeting = (props: GreetingProps) => {
     if (response.error) {
       setErrored(true);
       setTimeout(() => setErrored(false), 3000);
+
+      toast.error(response.error.message, toastOptions);
     }
   }, [response.error]);
 
@@ -58,7 +76,7 @@ export const Greeting = (props: GreetingProps) => {
   if (errored) {
     return (
       <button className={`${buttonClass} bg-red-500`} disabled={true}>
-        {response.error.message}
+        <FontAwesomeIcon className='h-5 w-5' icon={faCircleExclamation} />
       </button>
     );
   }
