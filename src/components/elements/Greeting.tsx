@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import { toast, ToastOptions } from 'react-toastify';
 
-import { link, Tweet } from '@/entities/twitter';
+import { linkToTweet, Tweet } from '@/entities/twitter';
 import { TweetCreateQuery, useTweetCreate } from '@/usecases/twitter';
 
 type GreetingProps = {
@@ -35,7 +35,15 @@ export const Greeting = (props: GreetingProps) => {
       setTweet(response.data.tweet);
       setTimeout(() => setTweet(undefined), 3000);
 
-      toast.success('Tweet succeeded!', toastOptions);
+      toast.success(
+        <div>
+          Tweet succeeded!
+          <Link className='block text-sm capitalize underline' href={linkToTweet(response.data.tweet)} target='_blank'>
+            show tweet
+          </Link>
+        </div>,
+        toastOptions
+      );
     }
   }, [response.data]);
 
