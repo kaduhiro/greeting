@@ -7,6 +7,6 @@ export const tweetCacheKeyGenerator = {
       return null;
     }
 
-    return [TWITTER.cacheKey.tweet, REQUEST_TYPE.create, title, body] as const;
+    return [TWITTER.cacheKey.tweet, REQUEST_TYPE.create, title, body];
   },
 };
