@@ -4,13 +4,14 @@ import { useRecoilValue } from 'recoil';
 
 import { Assistant, Greeting } from '@/components/elements';
 import { Auth } from '@/components/parts';
-import { assistantState } from '@/states';
+import { assistantState, timeState } from '@/states';
 import { TweetCreateQuery } from '@/usecases/twitter';
 
 export const Form = () => {
   const titleRef = useRef<HTMLInputElement>(null);
   const bodyRef = useRef<HTMLTextAreaElement>(null);
 
+  const time = useRecoilValue(timeState);
   const assistant = useRecoilValue(assistantState);
 
   const [tweetQuery, setTweetQuery] = useState<TweetCreateQuery>({ title: '', body: '' });
@@ -21,8 +22,18 @@ export const Form = () => {
       body: bodyRef.current?.value ?? '',
     };
 
+    if (!query.title) {
+      query.title = time.morning ? time.morning_greeting : time.night_greeting;
+    }
+
     setTweetQuery(query);
   };
+
+  useEffect(() => {
+    if (titleRef.current) {
+      titleRef.current.placeholder = time.morning ? time.morning_greeting : time.night_greeting;
+    }
+  }, [time]);
 
   useEffect(() => {
     if (bodyRef.current) {

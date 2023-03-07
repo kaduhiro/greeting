@@ -4,8 +4,10 @@ import { faCheck, faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import { toast, ToastOptions } from 'react-toastify';
+import { useRecoilState } from 'recoil';
 
 import { linkToTweet, Tweet } from '@/entities/twitter';
+import { timeState } from '@/states';
 import { TweetCreateQuery, useTweetCreate } from '@/usecases/twitter';
 
 type GreetingProps = {
@@ -13,6 +15,8 @@ type GreetingProps = {
 };
 
 export const Greeting = (props: GreetingProps) => {
+  const [time, setTime] = useRecoilState(timeState);
+
   const [query, setQuery] = useState<TweetCreateQuery>({ title: '', body: '' });
   const [tweet, setTweet] = useState<Tweet>();
   const [errored, setErrored] = useState<boolean>(false);
@@ -32,6 +36,11 @@ export const Greeting = (props: GreetingProps) => {
 
   useEffect(() => {
     if (response.data) {
+      setTime({
+        ...time,
+        ...(time.morning ? { morning_greeting: query.title } : { night_greeting: query.title }),
+      });
+
       setTweet(response.data.tweet);
       setTimeout(() => setTweet(undefined), 3000);
 
