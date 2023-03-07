@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { useRecoilValue } from 'recoil';
 
-import { Assistant, Greeting } from '@/components/elements';
+import { Assistant, Greeting, TimeToggle } from '@/components/elements';
 import { Auth } from '@/components/parts';
 import { assistantState, timeState } from '@/states';
 import { TweetCreateQuery } from '@/usecases/twitter';
@@ -45,7 +45,7 @@ export const Form = () => {
   return (
     <>
       <div className='flex flex-wrap'>
-        <div className='w-full p-2'>
+        <div className='w-2/3 p-2'>
           <input
             type='text'
             className='w-full rounded border border-gray-300 bg-gray-100/20 py-3 px-4 text-base leading-8 text-gray-900 outline-none transition-colors duration-200 ease-in-out focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 dark:text-gray-100 dark:focus:text-gray-700'
@@ -53,6 +53,9 @@ export const Form = () => {
             ref={titleRef}
             onChange={updatePrompt}
           />
+        </div>
+        <div className='flex w-1/3 items-center justify-center p-2'>
+          <TimeToggle />
         </div>
         <div className='w-full p-2'>
           <div className='relative'>
