@@ -12,7 +12,7 @@ export const DefaultLayout = ({ children, title }: LayoutProps) => {
   const time = useRecoilValue(timeState);
 
   useEffect(() => {
-    document.body.className = !time.morning ? 'light' : 'dark';
+    document.body.className = time.morning ? 'light' : 'dark';
   });
 
   return (
