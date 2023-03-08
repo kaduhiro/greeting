@@ -14,7 +14,7 @@ export const Form = () => {
   const time = useRecoilValue(timeState);
   const assistant = useRecoilValue(assistantState);
 
-  const [tweetQuery, setTweetQuery] = useState<TweetCreateQuery>({ title: '', body: '' });
+  const [greetingQuery, setGreetingQuery] = useState<TweetCreateQuery>({ title: '', body: '' });
 
   const updatePrompt = () => {
     const query = {
@@ -26,7 +26,7 @@ export const Form = () => {
       query.title = time.morning ? time.morning_greeting : time.night_greeting;
     }
 
-    setTweetQuery(query);
+    setGreetingQuery(query);
   };
 
   useEffect(() => {
@@ -74,7 +74,7 @@ export const Form = () => {
         </div>
         <div className='flex w-full justify-between p-2'>
           <Auth />
-          <Greeting query={tweetQuery} />
+          <Greeting query={greetingQuery} />
         </div>
       </div>
     </>
