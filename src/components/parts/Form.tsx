@@ -30,6 +30,16 @@ export const Form = () => {
   };
 
   useEffect(() => {
+    if (titleRef.current && !greetingQuery.title.length) {
+      titleRef.current.value = '';
+    }
+
+    if (bodyRef.current && !greetingQuery.body.length) {
+      bodyRef.current.value = '';
+    }
+  }, [greetingQuery]);
+
+  useEffect(() => {
     if (titleRef.current) {
       titleRef.current.placeholder = time.morning ? time.morning_greeting : time.night_greeting;
     }
@@ -74,7 +84,7 @@ export const Form = () => {
         </div>
         <div className='flex w-full justify-between p-2'>
           <Auth />
-          <Greeting query={greetingQuery} />
+          <Greeting query={greetingQuery} setQuery={setGreetingQuery} />
         </div>
       </div>
     </>

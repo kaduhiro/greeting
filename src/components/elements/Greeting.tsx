@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 import { faCheck, faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,6 +12,7 @@ import { TweetCreateQuery, useTweetCreate } from '@/usecases/twitter';
 
 type GreetingProps = {
   query: TweetCreateQuery;
+  setQuery: Dispatch<SetStateAction<TweetCreateQuery>>;
 };
 
 export const Greeting = (props: GreetingProps) => {
@@ -53,6 +54,8 @@ export const Greeting = (props: GreetingProps) => {
         </div>,
         toastOptions
       );
+
+      props.setQuery({ title: '', body: '' });
     }
   }, [response.data]);
 
