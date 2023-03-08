@@ -10,6 +10,17 @@ import { linkToTweet, Tweet } from '@/entities/twitter';
 import { timeState } from '@/states';
 import { TweetCreateQuery, useTweetCreate } from '@/usecases/twitter';
 
+const toastOptions: ToastOptions = {
+  position: 'bottom-center',
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: 'colored',
+};
+
 type GreetingProps = {
   query: TweetCreateQuery;
   setQuery: Dispatch<SetStateAction<TweetCreateQuery>>;
@@ -23,18 +34,6 @@ export const Greeting = (props: GreetingProps) => {
   const [errored, setErrored] = useState<boolean>(false);
 
   const response = useTweetCreate(query);
-
-  const toastOptions: ToastOptions = {
-    position: 'bottom-center',
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: 'colored',
-  };
-
   useEffect(() => {
     if (response.data) {
       setTime({
