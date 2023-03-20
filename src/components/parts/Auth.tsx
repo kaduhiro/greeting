@@ -46,7 +46,7 @@ export const Auth = () => {
       </Link>
       <Button
         className='bg-red-600 hover:bg-red-700 focus:ring-red-500'
-        text='sign out'
+        text=''
         icon={faRightFromBracket}
         onClick={() => signOut()}
       />
