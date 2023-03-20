@@ -25,7 +25,22 @@ export const Assistant = () => {
     const date = format(new Date(), 'MMMM d');
 
     setQuery({
-      prompt: `please answer in about 100 characters in japanese. what trivia can you share about ${date} in japan?`,
+      prompt: `
+# Order:
+You are a professional Commentator.
+Output the best summary based on the following Constraints and Input.
+
+# Constraints:
+- About 140 characters
+- Easy to understand for elementary school students
+- No important keywords are left out
+- Output in Japanese
+
+# Input:
+Please introduce what day ${date} is by selecting one at random from the "Holidays and observances" section of Wikipedia.
+
+# Output:
+`,
     });
   };
 
