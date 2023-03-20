@@ -34,7 +34,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<ResponseAssista
 
     res.status(StatusCodes.OK).json({ text: completion.data.choices[0].message?.content ?? '' });
   } catch (error) {
-    console.log(error);
     if (axios.isAxiosError(error)) {
       const status = error.response?.status ?? StatusCodes.INTERNAL_SERVER_ERROR;
       res.status(status).json({ status, message: `Have you set up your API? (${error.message})` });
