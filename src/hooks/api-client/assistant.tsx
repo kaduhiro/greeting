@@ -7,7 +7,7 @@ export const useAssistantApiClient = () => {
       throw new Error('Prompt is empty.');
     }
 
-    const result = await fetch('/api/openai/gpt-3/conversation', {
+    const result = await fetch('/api/openai/chat-gpt/conversation', {
       headers: {
         Accept: 'application/json, */*',
         'Content-type': 'application/json',
